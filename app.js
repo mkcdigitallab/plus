@@ -12,7 +12,7 @@ function esc(v){return String(v??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt
 function uid(){return Math.random().toString(36).slice(2,10)}
 function bytes(n){return n<1048576?Math.max(1,Math.round(n/1024))+' Ko':(n/1048576).toFixed(1)+' Mo'}
 function I(n){return "<i data-lucide='"+n+"'></i>"}
-function img(src,alt,cls=''){return "<img class='media-img "+cls+"' src='"+esc(src)+"' alt='"+esc(alt)+"' loading='lazy' onerror='this.style.display="none"'>"}
+function img(src,alt,cls=''){return "<img class='media-img "+cls+"' src='"+esc(src)+"' alt='"+esc(alt)+"' loading='lazy' onerror='this.style.display=\"none\"'>"}
 function now(){return new Date().toISOString()}
 function historyFor(status,origin){const order=['received','inspection_assigned','inspection_submitted','assigned','in_progress','treated','resolved'],i=order.indexOf(status);return order.slice(0,i+1).map((to,n)=>({to,from:n?order[n-1]:null,by:n===0?(origin==='guest'?'Invité':'Citoyenne'):n<3?'Inspecteur municipal':n<6?'Service municipal':'Mairie',at:new Date(Date.now()-(i-n)*86400000).toISOString(),reason:''}))}
 function makeReport(x){return{id:x[0],title:x[1],category:x[2],region:x[3],area:x[4],priority:x[5],status:x[6],origin:x[7],owner:x[7]==='guest'?'Invité':'Awa Diop',description:'Problème constaté dans l’espace public. La situation gêne les habitants et usagers du quartier.',address:x[4]+', '+x[3],image:x[8],history:historyFor(x[6],x[7]),attachments:x[8]?[{name:'Photo du signalement',type:'image/jpeg',size:420000,url:x[8]}]:[],supporters:Math.floor(Math.random()*7),service:['assigned','in_progress','treated'].includes(x[6])?'s1':null,trackingCode:x[7]==='guest'?uid().slice(0,6).toUpperCase():null}}
